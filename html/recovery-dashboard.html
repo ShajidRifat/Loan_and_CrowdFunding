@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Restricted - UniFund</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' },
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-red-50 text-slate-900 font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Sidebar Container -->
+    <aside
+        class="w-64 fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform -translate-x-full md:translate-x-0"
+        id="sidebar-container"></aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 flex flex-col h-full relative items-center justify-center p-8">
+
+        <div class="max-w-xl w-full text-center space-y-6">
+            <div
+                class="h-24 w-24 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                <i data-lucide="shield-alert" class="h-12 w-12"></i>
+            </div>
+
+            <h1 class="font-display font-bold text-3xl text-slate-900">Account Restricted</h1>
+
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-red-500 text-left">
+                <h3 class="font-bold text-lg text-red-600 mb-2">Notice of Suspension</h3>
+                <p class="text-slate-600 mb-4 leading-relaxed">
+                    Your account has been temporarily suspended due to flagged activity or outstanding compliance
+                    issues.
+                    While you cannot apply for new loans or create campaigns, you <strong>must still repay your
+                        outstanding loans</strong>.
+                </p>
+
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Failure to settle your debts may result in permanent legal action. Please proceed effectively
+                    immediately.
+                </p>
+
+                <div class="flex gap-4">
+                    <a href="my-loans.html"
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition-colors text-center shadow-lg shadow-red-500/20">
+                        Go to Repayments
+                    </a>
+                    <button onclick="auth.logout()"
+                        class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition-colors text-center">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-400">
+                Contact support at <a href="#" class="text-brand-600 hover:underline">legal@unifund.edu</a> for appeals.
+            </p>
+        </div>
+
+    </main>
+
+    <script src="utils.js"></script>
+    <script src="recovery-dashboard.js"></script>
+    <script src="layout.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            layout.init();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

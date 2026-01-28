@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan & CrowdFunding - Future of Finance</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' },
+                        accent: { 500: '#f59e0b' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="antialiased text-slate-800 overflow-x-hidden bg-gradient-mesh">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/70 backdrop-blur-lg border-b border-white/20"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 group cursor-pointer">
+                    <!-- Animated Logo -->
+                    <div
+                        class="h-10 w-10 bg-brand-600 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
+                        <i data-lucide="layers" class="text-white h-6 w-6"></i>
+                    </div>
+                    <span
+                        class="font-display font-bold text-2xl text-slate-900 tracking-tight group-hover:text-brand-600 transition-colors">Loan
+                        & CrowdFunding</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features"
+                        class="text-slate-600 hover:text-brand-600 font-medium transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Features</a>
+                    <a href="#how-it-works"
+                        class="text-slate-600 hover:text-brand-600 font-medium transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">How
+                        it Works</a>
+                    <a href="#impact"
+                        class="text-slate-600 hover:text-brand-600 font-medium transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Impact</a>
+                    <a href="login.html"
+                        class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-xl transition-all shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-0.5 btn-ripple">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Left Content -->
+                <div class="fade-in">
+                    <div
+                        class="inline-flex items-center px-4 py-2 rounded-full bg-white/50 backdrop-blur-md border border-brand-100 text-brand-600 text-sm font-medium mb-8 shadow-sm stagger-1">
+                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                        Bangladesh's First Merit-Based Funding Platform
+                    </div>
+                    <h1
+                        class="font-display text-5xl lg:text-7xl font-bold text-slate-900 leading-[1.1] mb-6 tracking-tight stagger-2">
+                        Your Talent, <br />
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-secondary">Our
+                            Capital.</span>
+                    </h1>
+                    <p class="text-xl text-slate-500 mb-10 leading-relaxed max-w-lg stagger-3">
+                        Loan & CrowdFunding connects brilliant students with alumni investors. No collateral needed—just
+                        your CGPA and
+                        potential.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center gap-4 stagger-4">
+                        <a href="login.html"
+                            class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition-all shadow-xl shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-1 text-lg text-center flex items-center justify-center gap-2 btn-ripple">
+                            Apply for Funding <i data-lucide="arrow-right" class="h-5 w-5"></i>
+                        </a>
+                        <a href="#features"
+                            class="w-full sm:w-auto px-8 py-4 bg-white/80 hover:bg-white text-slate-700 font-bold rounded-xl border border-slate-200 transition-all hover:border-brand-200 hover:-translate-y-1 text-lg text-center backdrop-blur-sm">
+                            Learn More
+                        </a>
+                    </div>
+
+                    <div class="mt-12 flex items-center gap-4 text-sm text-slate-500 stagger-4">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white"
+                                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rahim" alt="User">
+                            <img class="w-8 h-8 rounded-full border-2 border-white"
+                                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fatema" alt="User">
+                            <img class="w-8 h-8 rounded-full border-2 border-white"
+                                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Karim" alt="User">
+                        </div>
+                        <p>Trusted by <span class="font-bold text-slate-900">5,000+</span> students from UIU,BUET, DU, & NSU
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Visual -->
+                <div class="relative lg:h-[600px] flex items-center justify-center slide-in-right">
+                    <!-- Floating Cards -->
+                    <div class="absolute top-10 right-10 z-20 float delay-100">
+                        <div class="glass-card p-4 rounded-2xl flex items-center gap-3 w-64 tilt-card">
+                            <div
+                                class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                <i data-lucide="check" class="h-5 w-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">Tuition Funded</div>
+                                <div class="text-slate-900 font-bold">৳50,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-20 left-0 z-20 float delay-300">
+                        <div class="glass-card p-4 rounded-2xl flex items-center gap-3 w-64 tilt-card">
+                            <div
+                                class="h-10 w-10 bg-accent-100 rounded-full flex items-center justify-center text-accent-500">
+                                <i data-lucide="heart" class="h-5 w-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">New Donation</div>
+                                <div class="text-slate-900 font-bold">+৳5,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Graphic -->
+                    <div
+                        class="relative z-10 w-full max-w-md aspect-square bg-gradient-to-tr from-brand-500 to-secondary rounded-full opacity-20 blur-3xl animate-pulse">
+                    </div>
+                    <img src="https://illustrations.popsy.co/amber/student-going-to-school.svg" alt="Student Success"
+                        class="relative z-10 w-full max-w-lg drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">Why Choose Loan & CrowdFunding?</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg">We're building a financial ecosystem that puts
+                    Bangladeshi students first.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-3xl tilt-card border border-white/50">
+                    <div
+                        class="h-14 w-14 bg-brand-100 rounded-2xl flex items-center justify-center mb-6 text-brand-600 shadow-sm">
+                        <i data-lucide="shield-check" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Merit-Based Trust</h3>
+                    <p class="text-slate-500 leading-relaxed">Our AI analyzes your CGPA and university standing to
+                        approve loans. No family collateral required.</p>
+                </div>
+                <div class="glass p-8 rounded-3xl tilt-card border border-white/50">
+                    <div
+                        class="h-14 w-14 bg-accent-100 rounded-2xl flex items-center justify-center mb-6 text-accent-600 shadow-sm">
+                        <i data-lucide="users" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Community Funded</h3>
+                    <p class="text-slate-500 leading-relaxed">Crowdfund your projects or tuition directly from a network
+                        of successful alumni and donors.</p>
+                </div>
+                <div class="glass p-8 rounded-3xl tilt-card border border-white/50">
+                    <div
+                        class="h-14 w-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6 text-green-600 shadow-sm">
+                        <i data-lucide="trending-up" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Shariah Compliant</h3>
+                    <p class="text-slate-500 leading-relaxed">We offer interest-free (Qard Hasan) options and
+                        profit-sharing models for ethical financing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24 bg-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg">Four simple steps to secure your future.</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-200 -z-10"></div>
+
+                <!-- Step 1 -->
+                <div class="relative group">
+                    <div
+                        class="bg-white w-24 h-24 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-12 w-12 bg-brand-100 rounded-xl flex items-center justify-center text-brand-600">
+                            <i data-lucide="user-plus" class="h-6 w-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 text-center mb-2">1. Create Profile</h3>
+                    <p class="text-slate-500 text-center text-sm">Sign up and verify your student status with your
+                        university ID.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative group">
+                    <div
+                        class="bg-white w-24 h-24 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="h-12 w-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
+                            <i data-lucide="file-check" class="h-6 w-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 text-center mb-2">2. Get Verified</h3>
+                    <p class="text-slate-500 text-center text-sm">Our AI analyzes your academic performance to assign a
+                        Trust Score.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative group">
+                    <div
+                        class="bg-white w-24 h-24 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:-translate-y-2 transition-transform duration-300">
+                        <div
+                            class="h-12 w-12 bg-accent-100 rounded-xl flex items-center justify-center text-accent-600">
+                            <i data-lucide="wallet" class="h-6 w-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 text-center mb-2">3. Receive Funds</h3>
+                    <p class="text-slate-500 text-center text-sm">Apply for a loan or start a campaign. Funds are
+                        disbursed directly.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative group">
+                    <div
+                        class="bg-white w-24 h-24 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-12 w-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600">
+                            <i data-lucide="graduation-cap" class="h-6 w-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 text-center mb-2">4. Repay & Grow</h3>
+                    <p class="text-slate-500 text-center text-sm">Repay after graduation or as agreed. Build your credit
+                        history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-24 relative bg-slate-900 text-white overflow-hidden">
+        <!-- Background Glows -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-display text-4xl lg:text-5xl font-bold mb-6">Empowering the Next Generation of
+                        Leaders</h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        We believe that financial constraints should never stand in the way of education. By connecting
+                        students with alumni and investors, we're creating a sustainable cycle of success.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <div class="text-4xl font-bold text-brand-400 mb-1">৳50M+</div>
+                            <div class="text-sm text-slate-400">Total Funds Disbursed</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-purple-400 mb-1">10k+</div>
+                            <div class="text-sm text-slate-400">Students Supported</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-green-400 mb-1">98%</div>
+                            <div class="text-sm text-slate-400">Repayment Rate</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-accent-400 mb-1">50+</div>
+                            <div class="text-sm text-slate-400">Partner Universities</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div
+                        class="aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1000"
+                            alt="Students"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8">
+                            <div>
+                                <div class="font-bold text-xl mb-1">"Loan & CrowdFunding saved my semester."</div>
+                                <div class="text-slate-300 text-sm">- Robin, CS Student at UIU</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">Success Stories</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg">Hear from the students and investors shaping the
+                    future.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-1 text-accent-500 mb-6">
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 leading-relaxed">"The application process was incredibly smooth. I got
+                        funded within 3 days and could pay my tuition on time. The repayment terms are very
+                        student-friendly."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rahim"
+                            class="h-12 w-12 rounded-full bg-white" alt="User">
+                        <div>
+                            <div class="font-bold text-slate-900">Sujon Das</div>
+                            <div class="text-xs text-slate-500">Student, UIU</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-1 text-accent-500 mb-6">
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 leading-relaxed">"As an alumni, I wanted to give back. Loan &
+                        CrowdFunding allows me to see exactly who I'm helping and track their progress. It's transparent
+                        and impactful."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tanvir"
+                            class="h-12 w-12 rounded-full bg-white" alt="User">
+                        <div>
+                            <div class="font-bold text-slate-900">Tanvir Ahmed</div>
+                            <div class="text-xs text-slate-500">Investor, Ex-NSU</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center gap-1 text-accent-500 mb-6">
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                        <i data-lucide="star" class="h-5 w-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 leading-relaxed">"I raised funds for my final year project through the
+                        crowdfunding feature. The community support was overwhelming. Highly recommended!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fatema"
+                            class="h-12 w-12 rounded-full bg-white" alt="User">
+                        <div>
+                            <div class="font-bold text-slate-900">Fatema Begum</div>
+                            <div class="text-xs text-slate-500">Student, DU</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Who is eligible to apply?</h3>
+                    <p class="text-slate-600">Any undergraduate or graduate student enrolled in a recognized Bangladeshi
+                        university with a valid student ID and a minimum CGPA of 3.5.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">What is the interest rate?</h3>
+                    <p class="text-slate-600">We offer 0% interest loans (Qard Hasan) for eligible students. For larger
+                        amounts, we use a profit-sharing model where you share a small percentage of future earnings.
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">How do I repay the loan?</h3>
+                    <p class="text-slate-600">Repayment starts 6 months after graduation or when you secure employment.
+                        You can choose a flexible monthly installment plan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200/60 bg-white/40 backdrop-blur-xl">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="h-8 w-8 bg-brand-600 rounded-lg flex items-center justify-center">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
+                        <path d="M10 28V16L20 24L30 16V28" stroke="white" stroke-width="4" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span class="font-display font-bold text-xl text-slate-900">Loan & CrowdFunding</span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                &copy; 2025 Loan & CrowdFunding Bangladesh. All rights reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-400 hover:text-brand-600 transition-colors"><i data-lucide="facebook"
+                        class="h-5 w-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-600 transition-colors"><i data-lucide="twitter"
+                        class="h-5 w-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-600 transition-colors"><i data-lucide="linkedin"
+                        class="h-5 w-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

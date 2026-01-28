@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Campaign - Loan & CrowdFunding</title>
+
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        accent: { 500: '#6366f1' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-slate-50 h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <!-- Sidebar Container -->
+    <aside
+        class="w-64 fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform -translate-x-full md:translate-x-0"
+        id="sidebar-container">
+        <!-- Injected by layout.js -->
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 flex flex-col h-full overflow-hidden relative">
+        <!-- Mobile Header -->
+        <header class="md:hidden bg-white border-b border-slate-200 p-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="graduation-cap" class="text-brand-600 h-6 w-6"></i>
+                <span class="font-bold text-slate-900">UniFund</span>
+            </div>
+            <button class="text-slate-500"><i data-lucide="menu" class="h-6 w-6"></i></button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-8">
+            <div class="max-w-6xl mx-auto fade-in">
+                <div class="mb-8 flex items-center gap-4">
+                    <button onclick="window.history.back()"
+                        class="p-2 rounded-full hover:bg-slate-200 transition-colors" title="Go Back">
+                        <i data-lucide="arrow-left" class="h-6 w-6 text-slate-600"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-900">Start a Campaign</h1>
+                        <p class="text-slate-500">Raise funds from the community for your goals.</p>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8">
+                    <!-- Wizard Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <!-- Progress Bar -->
+                            <div class="bg-slate-50 border-b border-slate-200 p-4">
+                                <div class="flex items-center justify-between max-w-xs mx-auto">
+                                    <div class="step-indicator active flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-brand-500/20 transition-all duration-300">
+                                            1</div>
+                                        <span class="text-xs font-bold text-brand-600">Basics</span>
+                                    </div>
+                                    <div class="h-1 flex-1 bg-slate-200 mx-2 rounded-full overflow-hidden">
+                                        <div class="h-full bg-brand-600 w-0 transition-all duration-500"
+                                            id="progress-bar-1"></div>
+                                    </div>
+                                    <div class="step-indicator flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-300">
+                                            2</div>
+                                        <span class="text-xs font-bold text-slate-400">Funding</span>
+                                    </div>
+                                    <div class="h-1 flex-1 bg-slate-200 mx-2 rounded-full overflow-hidden">
+                                        <div class="h-full bg-brand-600 w-0 transition-all duration-500"
+                                            id="progress-bar-2"></div>
+                                    </div>
+                                    <div class="step-indicator flex flex-col items-center gap-2">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-300">
+                                            3</div>
+                                        <span class="text-xs font-bold text-slate-400">Story</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="campaign-form" class="p-6 md:p-8">
+                                <!-- Step 1: Basics -->
+                                <div id="step-1" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Campaign
+                                            Title</label>
+                                        <input type="text" id="input-title" name="title" required
+                                            placeholder="e.g. Help me attend the AI Conference"
+                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Category</label>
+                                        <select id="input-category" name="category"
+                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all cursor-pointer">
+                                            <option value="1">Education</option>
+                                            <option value="2">Project / Research</option>
+                                            <option value="5">Community</option>
+                                            <option value="3">Medical</option>
+                                            <option value="4">Emergency</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Short Tagline</label>
+                                        <input type="text" id="input-tagline" name="tagline" maxlength="60"
+                                            placeholder="A short summary (max 60 chars)"
+                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Funding -->
+                                <div id="step-2" class="space-y-6 hidden">
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Funding Goal</label>
+                                        <div class="relative">
+                                            <span class="absolute left-4 top-3.5 text-slate-400 font-bold">৳</span>
+                                            <input type="number" id="input-goal" name="goal" required min="500"
+                                                placeholder="5000"
+                                                class="w-full pl-8 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Deadline</label>
+                                        <input type="date" id="input-deadline" name="deadline" required
+                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Story & Media -->
+                                <div id="step-3" class="space-y-6 hidden">
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Cover Image</label>
+                                        <div id="drop-zone"
+                                            class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:bg-slate-50 hover:border-brand-400 transition-all cursor-pointer group">
+                                            <input type="file" id="file-upload" name="image" accept="image/*"
+                                                class="hidden">
+                                            <div
+                                                class="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-100 group-hover:text-brand-600 transition-colors">
+                                                <i data-lucide="image" class="h-6 w-6"></i>
+                                            </div>
+                                            <p class="text-sm font-medium text-slate-700">Click to upload or drag and
+                                                drop</p>
+                                            <p class="text-xs text-slate-400 mt-1">SVG, PNG, JPG or GIF (max. 800x400px)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-slate-700 mb-1">Detailed
+                                            Story</label>
+                                        <textarea id="input-description" name="description" required rows="6"
+                                            placeholder="Tell your story. Why is this important to you? How will the funds be used?"
+                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Navigation -->
+                                <div class="flex justify-between pt-8 mt-6 border-t border-slate-100">
+                                    <button type="button" id="btn-back"
+                                        class="hidden px-6 py-2.5 text-slate-600 font-bold hover:bg-slate-100 rounded-xl transition-colors">
+                                        Back
+                                    </button>
+                                    <div class="flex gap-3 ml-auto">
+                                        <a href="dashboard.html"
+                                            class="px-6 py-2.5 text-slate-500 font-bold hover:text-slate-700 transition-colors flex items-center">Cancel</a>
+                                        <button type="button" id="btn-next"
+                                            class="px-8 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-brand-500/30">
+                                            Next Step
+                                        </button>
+                                        <button type="submit" id="btn-submit"
+                                            class="hidden px-8 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-brand-500/30">
+                                            Launch Campaign
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="lg:col-span-5">
+                        <div class="sticky top-8">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Live Preview</h3>
+
+                            <div
+                                class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden transform transition-all hover:scale-[1.02]">
+                                <!-- Cover Image -->
+                                <div class="h-48 bg-slate-100 relative overflow-hidden group">
+                                    <img id="preview-image"
+                                        src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Campaign Cover"
+                                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    <div class="absolute top-4 right-4">
+                                        <span id="preview-category"
+                                            class="px-3 py-1 rounded-full bg-white/90 text-xs font-bold text-brand-600 uppercase tracking-wider shadow-sm backdrop-blur-sm">
+                                            Education
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="p-6">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div
+                                            class="h-6 w-6 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 text-xs font-bold">
+                                            U
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-500">by <span
+                                                class="text-slate-900">You</span></span>
+                                    </div>
+
+                                    <h3 id="preview-title"
+                                        class="font-display font-bold text-xl text-slate-900 mb-2 leading-tight">Your
+                                        Campaign Title</h3>
+                                    <p id="preview-tagline" class="text-slate-500 text-sm mb-6 line-clamp-2">Your short
+                                        tagline will appear here...</p>
+
+                                    <div>
+                                        <div class="w-full bg-slate-100 rounded-full h-2 mb-2 overflow-hidden">
+                                            <div class="bg-brand-600 h-2 rounded-full w-[0%]"></div>
+                                        </div>
+                                        <div class="flex justify-between text-sm font-bold mb-6">
+                                            <span class="text-brand-600">৳0</span>
+                                            <span class="text-slate-400">of <span id="preview-goal">৳5,000</span></span>
+                                        </div>
+
+                                        <div class="flex justify-between items-center border-t border-slate-50 pt-4">
+                                            <div>
+                                                <div class="text-xs text-slate-400 font-medium uppercase">Backers</div>
+                                                <div class="font-bold text-slate-900">0</div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-xs text-slate-400 font-medium uppercase">Days Left
+                                                </div>
+                                                <div class="font-bold text-slate-900" id="preview-days">30</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 flex gap-3">
+                                <i data-lucide="info" class="h-5 w-5 text-blue-600 flex-shrink-0"></i>
+                                <p class="text-sm text-blue-700">
+                                    <strong>Tip:</strong> Campaigns with a personal video or high-quality cover image
+                                    raise <strong>2x more funds</strong> on average.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="utils.js"></script>
+    <script src="layout.js"></script>
+    <script src="create-campaign.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment History - UniFund</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' },
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Sidebar Container -->
+    <aside
+        class="w-64 fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform -translate-x-full md:translate-x-0"
+        id="sidebar-container"></aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 flex flex-col h-full relative">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+            <div class="px-8 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <button onclick="window.history.back()"
+                        class="p-2 rounded-full hover:bg-slate-100 transition-colors">
+                        <i data-lucide="arrow-left" class="h-6 w-6 text-slate-600"></i>
+                    </button>
+                    <div>
+                        <h1 class="font-display text-2xl font-bold text-slate-900">Payment History</h1>
+                        <p class="text-slate-500 text-sm mt-1">View all your transactions and financial activity</p>
+                    </div>
+                </div>
+                <div id="header-user-initial"
+                    class="h-10 w-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold">U
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold text-slate-700">Type</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700">Amount</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700">Status</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700">Description</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700 text-right">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body" class="divide-y divide-slate-100">
+                                <!-- JS Injection -->
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-slate-500">Loading history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="utils.js"></script>
+    <script src="layout.js"></script>
+    <script src="history.js"></script>
+</body>
+
+</html>

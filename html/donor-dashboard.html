@@ -1,0 +1,250 @@
+<!-- Donor Dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - UniFund</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="utils.js?v=3"></script>
+    <script src="layout.js?v=3"></script>
+    <script src="donor-dashboard.js?v=3"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div id="sidebar-container" class="w-64 flex-shrink-0 hidden md:block"></div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <!-- Header -->
+            <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 z-20">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <h1 class="text-2xl font-display font-bold text-slate-900">Impact Dashboard</h1>
+
+                    <div class="flex items-center gap-4 relative">
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button id="btn-notifications"
+                                class="p-2 text-slate-400 hover:text-brand-600 transition-colors relative">
+                                <i data-lucide="bell" class="h-6 w-6"></i>
+                                <span
+                                    class="absolute top-2 right-2 h-2.5 w-2.5 bg-red-500 rounded-full border border-white"></span>
+                            </button>
+                            <!-- Notification Dropdown -->
+                            <div id="dropdown-notifications"
+                                class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
+                                <div class="px-4 py-2 border-b border-slate-50 flex justify-between items-center">
+                                    <h6 class="font-bold text-sm text-slate-900">Notifications</h6>
+                                    <button id="btn-mark-read"
+                                        class="text-xs text-brand-600 font-medium hover:underline">Mark all
+                                        read</button>
+                                </div>
+                                <div class="max-h-64 overflow-y-auto">
+                                    <a href="#"
+                                        class="block px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0">
+                                        <p class="text-sm text-slate-800 font-medium">Campaign Update</p>
+                                        <p class="text-xs text-slate-500 mt-0.5">"Solar Power for Schools" posted a new
+                                            update.</p>
+                                        <p class="text-[10px] text-slate-400 mt-1">2 mins ago</p>
+                                    </a>
+                                    <a href="#" class="block px-4 py-3 hover:bg-slate-50 transition-colors">
+                                        <p class="text-sm text-slate-800 font-medium">Donation Successful</p>
+                                        <p class="text-xs text-slate-500 mt-0.5">Your donation of ৳5,000 was processed.
+                                        </p>
+                                        <p class="text-[10px] text-slate-400 mt-1">1 hour ago</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile Dropdown Area -->
+                        <div class="relative">
+                            <button id="btn-profile"
+                                class="flex items-center gap-3 pl-4 border-l border-slate-200 hover:opacity-80 transition-opacity">
+                                <div class="text-right hidden sm:block">
+                                    <div class="text-sm font-bold text-slate-900" id="header-user-name">Donor</div>
+                                    <div class="text-xs text-slate-500">Philanthropist</div>
+                                </div>
+                                <div class="h-10 w-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold border border-brand-200 overflow-hidden"
+                                    id="header-user-initial">
+                                    D
+                                </div>
+                                <!-- Inner component for avatar if present, logic in layout.js might replace src -->
+                            </button>
+
+                            <!-- Profile Dropdown -->
+                            <div id="dropdown-profile"
+                                class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
+                                <div class="px-4 py-3 border-b border-slate-50">
+                                    <p class="text-sm font-bold text-slate-900" id="dropdown-user-name">Donor User</p>
+                                    <p class="text-xs text-slate-500 truncate" id="dropdown-user-email">
+                                        donor@example.com</p>
+                                </div>
+                                <div class="py-1">
+                                    <a href="profile.html"
+                                        class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600">
+                                        <i data-lucide="user" class="h-4 w-4"></i> My Profile
+                                    </a>
+                                    <a href="#"
+                                        class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600">
+                                        <i data-lucide="settings" class="h-4 w-4"></i> Settings
+                                    </a>
+                                </div>
+                                <div class="border-t border-slate-50 py-1">
+                                    <button onclick="auth.logout()"
+                                        class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                        <i data-lucide="log-out" class="h-4 w-4"></i> Sign Out
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <main class="flex-1 overflow-y-auto p-6 space-y-8">
+
+                <!-- Hero Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-gradient-to-br from-brand-600 to-brand-800 rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+                            <i data-lucide="heart" class="h-24 w-24"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <p class="text-brand-100 font-medium mb-1">Total Donated</p>
+                            <h2 class="text-4xl font-display font-bold mb-2" id="stat-total-donated">৳0</h2>
+                            <p class="text-xs text-brand-200 bg-white/20 inline-block px-2 py-1 rounded">Lifetime
+                                Contribution</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center group hover:border-brand-300 transition-colors">
+                        <div
+                            class="h-12 w-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i data-lucide="users" class="h-6 w-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-display font-bold text-slate-900 mb-1" id="stat-lives-impacted">0</h2>
+                        <p class="text-sm text-slate-500">Lives Impacted</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center group hover:border-brand-300 transition-colors">
+                        <div
+                            class="h-12 w-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i data-lucide="graduation-cap" class="h-6 w-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-display font-bold text-slate-900 mb-1" id="stat-campaigns-supported">0
+                        </h2>
+                        <p class="text-sm text-slate-500">Campaigns Supported</p>
+                    </div>
+                </div>
+
+                <!-- Smart Recommendations -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-display font-bold text-slate-900">Smart Recommendations</h3>
+                        <a href="#"
+                            class="text-sm font-medium text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                            View Marketplace <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendations-grid">
+                        <!-- Populated by JS -->
+                        <div class="col-span-full text-center py-12 text-slate-500">Loading recommendations...</div>
+                    </div>
+                </div>
+
+
+                <!-- Recent Activity & History -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Recent Donations (Portfolio) -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                            <h3 class="font-bold text-slate-900">Your Impact Portfolio</h3>
+                        </div>
+                        <div class="flex-1 overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-xs uppercase text-slate-500">
+                                        <th class="px-6 py-3 font-semibold">Student / Campaign</th>
+                                        <th class="px-6 py-3 font-semibold text-right">Amount</th>
+                                        <th class="px-6 py-3 font-semibold text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="portfolio-table-body" class="text-sm">
+                                    <!-- JS Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History (Financials) -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                            <h3 class="font-bold text-slate-900">Transaction History</h3>
+                            <button
+                                class="text-xs text-slate-500 hover:text-brand-600 flex items-center gap-1 border px-2 py-1 rounded">
+                                <i data-lucide="download" class="h-3 w-3"></i> Report
+                            </button>
+                        </div>
+                        <div class="flex-1 overflow-x-auto">
+                            <ul class="divide-y divide-slate-100" id="transaction-list">
+                                <!-- JS Content -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Rating Modal (Optional, kept hidden for structure) -->
+    <div id="rating-modal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+    </div>
+
+</body>
+
+</html>

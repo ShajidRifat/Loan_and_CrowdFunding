@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Loan - Loan & CrowdFunding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' },
+                        accent: { 500: '#f59e0b' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Container -->
+        <aside
+            class="w-64 fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform -translate-x-full md:translate-x-0"
+            id="sidebar-container">
+            <!-- Injected by layout.js -->
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-0 md:ml-64 flex flex-col h-screen overflow-y-auto relative">
+
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+                <div class="px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <button onclick="window.history.back()"
+                            class="p-2 rounded-full hover:bg-slate-100 transition-colors" title="Go Back">
+                            <i data-lucide="arrow-left" class="h-6 w-6 text-slate-600"></i>
+                        </button>
+                        <div>
+                            <h1 class="font-display text-2xl font-bold text-slate-900">Apply for Loan</h1>
+                            <p class="text-slate-500 text-sm mt-1">Fill out the form below to apply for an instant loan
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="h-10 w-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold shadow-lg shadow-brand-500/20"
+                            id="header-user-initial">
+                            U
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-8 max-w-4xl mx-auto w-full">
+
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+
+                    <!-- Wizard Progress -->
+                    <div class="mb-10">
+                        <div class="flex items-center justify-between relative">
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-100 -z-10"></div>
+                            <!-- Step 1 Indicator -->
+                            <div class="step-indicator active flex flex-col items-center gap-2 bg-white px-2">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold shadow-lg shadow-brand-500/20 transition-colors duration-300">
+                                    1</div>
+                                <span class="text-xs font-bold text-brand-600">Loan Details</span>
+                            </div>
+                            <!-- Step 2 Indicator -->
+                            <div class="step-indicator flex flex-col items-center gap-2 bg-white px-2">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold transition-colors duration-300">
+                                    2</div>
+                                <span class="text-xs font-bold text-slate-400">Personal Info</span>
+                            </div>
+                            <!-- Step 3 Indicator -->
+                            <div class="step-indicator flex flex-col items-center gap-2 bg-white px-2">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold transition-colors duration-300">
+                                    3</div>
+                                <span class="text-xs font-bold text-slate-400">Documents</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="loan-form" class="space-y-8">
+
+                        <!-- Step 1: Loan Details -->
+                        <div class="wizard-step" id="step-1">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="h-8 w-1 bg-brand-600 rounded-full"></div>
+                                <h2 class="font-display text-xl font-bold text-slate-900">Loan Details</h2>
+                            </div>
+
+                            <!-- Amount Section -->
+                            <div class="mb-8">
+                                <label class="block text-sm font-bold text-slate-900 mb-4">Loan Amount</label>
+                                <div class="relative mb-6">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <span class="text-slate-400 font-bold">৳</span>
+                                    </div>
+                                    <input type="number" id="amount-input"
+                                        class="block w-full pl-10 pr-4 py-4 bg-white border border-slate-200 rounded-xl text-slate-900 font-bold text-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
+                                        placeholder="5000" value="5000">
+                                </div>
+                                <div class="px-2">
+                                    <input type="range" min="500" max="50000" step="500" value="5000" id="amount-slider"
+                                        class="w-full">
+                                    <div class="flex justify-between mt-2 text-xs font-medium text-slate-400">
+                                        <span>৳500</span>
+                                        <span>৳25,000</span>
+                                        <span>৳50,000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Purpose & Term -->
+                            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Purpose of Loan</label>
+                                    <div class="relative">
+                                        <select id="category"
+                                            class="block w-full pl-4 pr-10 py-4 bg-white border border-slate-200 rounded-xl text-slate-600 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none appearance-none transition-all cursor-pointer">
+                                            <option value="" disabled selected>Select purpose</option>
+                                            <option value="Tuition">Tuition Fees</option>
+                                            <option value="Equipment">Laptop / Equipment</option>
+                                            <option value="Housing">Housing / Rent</option>
+                                            <option value="Books">Books & Supplies</option>
+                                            <option value="Personal">Personal Emergency</option>
+                                        </select>
+                                        <div
+                                            class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+                                            <i data-lucide="chevron-down" class="h-5 w-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Repayment Period</label>
+                                    <div class="relative">
+                                        <select id="term"
+                                            class="block w-full pl-4 pr-10 py-4 bg-white border border-slate-200 rounded-xl text-slate-600 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none appearance-none transition-all cursor-pointer">
+                                            <option value="" disabled selected>Select period</option>
+                                            <option value="3">3 Months</option>
+                                            <option value="6">6 Months</option>
+                                            <option value="12">12 Months</option>
+                                            <option value="24">24 Months</option>
+                                        </select>
+                                        <div
+                                            class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+                                            <i data-lucide="chevron-down" class="h-5 w-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- EMI Preview -->
+                            <div class="bg-brand-50 rounded-xl p-6 border border-brand-100">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-sm font-medium text-brand-700">Estimated Monthly Installment</p>
+                                        <p class="text-xs text-brand-500 mt-1">Includes 5% interest for students</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-brand-700" id="emi-amount">৳0</p>
+                                        <p class="text-xs text-brand-500">per month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Personal Info -->
+                        <div class="wizard-step hidden" id="step-2">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="h-8 w-1 bg-brand-600 rounded-full"></div>
+                                <h2 class="font-display text-xl font-bold text-slate-900">Parent/Guardian Info</h2>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Parent's Name</label>
+                                    <input type="text" id="parent-name"
+                                        class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
+                                        placeholder="Enter full name">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Phone Number</label>
+                                    <input type="tel" id="parent-phone"
+                                        class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
+                                        placeholder="+880 1XXX XXXXXX">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Employment Status</label>
+                                    <select id="parent-employment"
+                                        class="block w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-600 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none appearance-none transition-all cursor-pointer">
+                                        <option value="" disabled selected>Select status</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Self-Employed">Self-Employed</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-900 mb-2">Monthly Income</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <span class="text-slate-400 font-bold">৳</span>
+                                        </div>
+                                        <input type="number" id="parent-income"
+                                            class="block w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
+                                            placeholder="50000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Documents & Review -->
+                        <div class="wizard-step hidden" id="step-3">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="h-8 w-1 bg-brand-600 rounded-full"></div>
+                                <h2 class="font-display text-xl font-bold text-slate-900">Documents & Review</h2>
+                            </div>
+
+                            <!-- Document Upload -->
+                            <div class="space-y-4 mb-8">
+                                <label class="block text-sm font-bold text-slate-900">Upload Documents</label>
+                                <div class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-brand-500 hover:bg-brand-50 transition-all cursor-pointer group"
+                                    id="drop-zone">
+                                    <div
+                                        class="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 group-hover:bg-white group-hover:text-brand-600 transition-colors">
+                                        <i data-lucide="upload-cloud" class="h-6 w-6"></i>
+                                    </div>
+                                    <p class="text-slate-900 font-medium mb-1">Click to upload or drag and drop</p>
+                                    <p class="text-slate-500 text-xs">Student ID, National ID, or Academic Transcript
+                                        (PDF, JPG)</p>
+                                    <input type="file" id="file-upload" class="hidden" multiple>
+                                </div>
+                                <div id="file-list" class="space-y-2"></div>
+                            </div>
+
+                            <!-- T&C -->
+                            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <input type="checkbox" id="terms-check"
+                                    class="mt-1 w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
+                                <label for="terms-check" class="text-sm text-slate-600">
+                                    I agree to the <a href="#" class="text-brand-600 font-bold hover:underline">Terms &
+                                        Conditions</a> and <a href="#"
+                                        class="text-brand-600 font-bold hover:underline">Privacy Policy</a>. I certify
+                                    that the information provided is true and accurate.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between pt-6 border-t border-slate-100">
+                            <button type="button" id="btn-back"
+                                class="hidden px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition-colors">
+                                Back
+                            </button>
+                            <button type="button" id="btn-next"
+                                class="px-8 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all flex items-center gap-2 ml-auto">
+                                Next Step <i data-lucide="arrow-right" class="h-5 w-5"></i>
+                            </button>
+                            <button type="submit" id="btn-submit"
+                                class="hidden px-8 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all flex items-center gap-2 ml-auto">
+                                Submit Application <i data-lucide="check" class="h-5 w-5"></i>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="layout.js"></script>
+    <script src="apply-loan.js"></script>
+    <script>
+        // Sync Slider and Input
+        const slider = document.getElementById('amount-slider');
+        const input = document.getElementById('amount-input');
+
+        slider.addEventListener('input', (e) => {
+            input.value = e.target.value;
+        });
+
+        input.addEventListener('input', (e) => {
+            if (e.target.value <= 50000) {
+                slider.value = e.target.value;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,9 +1,6 @@
-#Loan_and_CrowdFunding(UniFund)
-
+Loan_and_CrowdFunding(UniFund)
 
 UniFund is a comprehensive dual-engine platform designed for managing student loans and educational crowdfunding campaigns. Built with a modern React frontend and a robust PHP backend, UniFund provides dedicated tools and dashboards to seamlessly connect Students, Administrators, and Donors.
-
-
 
 ✨ Key Features
 
@@ -18,9 +15,6 @@ UniFund is a comprehensive dual-engine platform designed for managing student lo
 * Proactive Security: Built-in fraud detection system with automated alerts for suspicious activities to ensure platform integrity.
   
 * Modern UI/UX: Highly responsive, intuitive design featuring smooth Framer Motion animations and a polished Tailwind CSS aesthetic.
-
-
-
 
 
 ### Frontend

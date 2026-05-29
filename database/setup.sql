@@ -105,6 +105,7 @@ CREATE TABLE campaigns (
     status_id TINYINT UNSIGNED NOT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
+    image_url MEDIUMTEXT NULL,
     goal_amount DECIMAL(15,2) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
@@ -126,6 +127,7 @@ CREATE TABLE loans (
     principal_amount DECIMAL(15,2) NOT NULL,
     interest_rate DECIMAL(5,2) DEFAULT 0.00,
     tenure_months TINYINT UNSIGNED NOT NULL,
+    document_url MEDIUMTEXT NULL,
     applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES users(user_id),
     FOREIGN KEY (status_id) REFERENCES loan_statuses(status_id)
@@ -287,7 +289,7 @@ INSERT INTO roles (role_name) VALUES ('student'), ('donor'), ('admin');
 INSERT INTO user_statuses (status_name) VALUES ('active'), ('inactive'), ('banned'), ('pending');
 INSERT INTO campaign_categories (category_name) VALUES ('Education'), ('Medical'), ('Emergency'), ('Project');
 INSERT INTO campaign_statuses (status_name) VALUES ('draft'), ('active'), ('completed'), ('rejected');
-INSERT INTO loan_statuses (status_name) VALUES ('pending'), ('approved'), ('active'), ('defaulted'), ('paid');
+INSERT INTO loan_statuses (status_name) VALUES ('pending'), ('approved'), ('active'), ('defaulted'), ('paid'), ('rejected');
 INSERT INTO risk_tiers (tier_name, min_score, max_score) VALUES ('Very High', 300, 549), ('High', 550, 649), ('Medium', 650, 749), ('Low', 750, 850);
 
 -- Insert Admin

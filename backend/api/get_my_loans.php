@@ -16,6 +16,7 @@ try {
             l.principal_amount,
             l.interest_rate,
             l.tenure_months,
+            l.document_url,
             s.status_name as status,
             l.applied_at as applied_at,
             COALESCE((

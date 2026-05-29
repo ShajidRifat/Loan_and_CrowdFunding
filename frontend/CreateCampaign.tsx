@@ -67,11 +67,43 @@ export default function CreateCampaign() {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (ev) => {
-                setCoverImage(ev.target?.result as string);
+                const img = new Image();
+                img.onload = () => {
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) {
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                        setCoverImage(compressedBase64);
+                    } else {
+                        setCoverImage(ev.target?.result as string);
+                    }
+                };
+                img.src = ev.target?.result as string;
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
         }
     };
 
@@ -85,10 +117,22 @@ export default function CreateCampaign() {
                 alert('Please set a goal and deadline');
                 return;
             }
+            const goalVal = parseFloat(formData.goal);
+            if (goalVal <= 0 || goalVal > 500000) {
+                alert('Campaign funding goal must be between ৳1 and ৳500,000.');
+                return;
+            }
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             if (new Date(formData.deadline) < today) {
                 alert('Deadline cannot be in the past');
+                return;
+            }
+            const maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 60);
+            maxDate.setHours(0, 0, 0, 0);
+            if (new Date(formData.deadline) > maxDate) {
+                alert('Campaign duration cannot exceed 60 days (2 months).');
                 return;
             }
         }
@@ -199,17 +243,18 @@ export default function CreateCampaign() {
                                     {step === 2 && (
                                         <div className="space-y-6 fade-in">
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 mb-1">Funding Goal</label>
+                                                <label className="block text-sm font-bold text-slate-700 mb-1">Funding Goal (Max ৳500,000)</label>
                                                 <div className="relative">
                                                     <span className="absolute left-4 top-3.5 text-slate-400 font-bold">৳</span>
-                                                    <input type="number" name="goal" value={formData.goal} onChange={handleChange} required min="500" placeholder="5000"
+                                                    <input type="number" name="goal" value={formData.goal} onChange={handleChange} required min="10" max="500000" placeholder="5000"
                                                         className="w-full pl-8 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all" />
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 mb-1">Deadline</label>
+                                                <label className="block text-sm font-bold text-slate-700 mb-1">Deadline (Max 60 days duration)</label>
                                                 <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required
                                                     min={new Date().toISOString().split('T')[0]}
+                                                    max={new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                                                     className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all" />
                                             </div>
                                         </div>

@@ -182,7 +182,7 @@ export default function Login() {
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 animate-pulse" style={{ animationDelay: '2s' }}></div>
 
             <div className="relative z-10 max-w-lg">
-                <div className="glass-panel p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl mb-12 transform hover:scale-[1.02] transition-transform duration-500">
+                <div className="p-8 rounded-3xl border border-white/10 bg-slate-900/45 backdrop-blur-xl mb-12 shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
                     <div className="flex items-center gap-4 mb-6">
                         <div className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-400 to-purple-500 p-0.5">
                             <div className="h-full w-full rounded-full bg-slate-900 flex items-center justify-center">
@@ -206,19 +206,21 @@ export default function Login() {
                 </div>
 
                 <h2 className="font-display text-5xl font-bold leading-tight mb-6">
-                    Finance the <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-purple-300">Next Generation.</span>
-                </h2>
+    Finance the <br />
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
+        Next Generation.
+    </span>
+</h2>
                 <p className="text-lg text-brand-100/80 leading-relaxed mb-8">
                     Join the ecosystem trusted by over 50 universities and 10,000+ students worldwide. Secure, transparent, and community-driven.
                 </p>
 
                 <div className="flex items-center gap-6">
-                    <div className="flex -space-x-3">
-                        <img className="w-10 h-10 rounded-full border-2 border-slate-900" src="https://api.dicebear.com/7.x/avataaars/svg?seed=A" alt="" />
-                        <img className="w-10 h-10 rounded-full border-2 border-slate-900" src="https://api.dicebear.com/7.x/avataaars/svg?seed=B" alt="" />
-                        <img className="w-10 h-10 rounded-full border-2 border-slate-900" src="https://api.dicebear.com/7.x/avataaars/svg?seed=C" alt="" />
-                        <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-xs font-bold text-white">+2k</div>
+                    <div className="flex -space-x-2 text-[10px] font-bold text-white">
+                        <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center hover:scale-105 transition-transform select-none shadow-md">SM</div>
+                        <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center hover:scale-105 transition-transform select-none shadow-md">DF</div>
+                        <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center hover:scale-105 transition-transform select-none shadow-md">AR</div>
+                        <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-xs shadow-md select-none font-bold">+2k</div>
                     </div>
                     <div className="h-12 w-px bg-white/20"></div>
                     <div>

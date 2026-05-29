@@ -16,6 +16,11 @@ if (
     !empty($data->purpose) &&
     !empty($data->duration) // Tenure in months
 ) {
+    if ($data->amount > 50000) {
+        http_response_code(400);
+        echo json_encode(["message" => "Maximum loan requested amount is ৳50,000"]);
+        exit;
+    }
     try {
         $pdo->beginTransaction();
 
@@ -33,21 +38,23 @@ if (
             title, 
             principal_amount, 
             interest_rate,
-            tenure_months
-        ) VALUES (?, ?, ?, ?, 5.00, ?)"); // 5% Flat Initial Interest
+            tenure_months,
+            document_url
+        ) VALUES (?, ?, ?, ?, 5.00, ?, ?)"); // 5% Flat Initial Interest
         
         if ($stmt->execute([
             $data->studentId,
             $status_id,
             $data->purpose, // Title
             $data->amount,
-            $data->duration
+            $data->duration,
+            $data->documents ?? null
         ])) {
             $loan_id = $pdo->lastInsertId();
             
             // Note: Installments are typically generated upon approval, not application.
             // Leaving installment generation for the admin approval phase or a separate process.
-
+ 
             $pdo->commit();
             http_response_code(201);
             echo json_encode(["message" => "Loan application submitted successfully", "loan_id" => $loan_id]);
@@ -55,7 +62,11 @@ if (
             throw new Exception("Unable to submit loan application");
         }
     } catch (Exception $e) {
-        if ($pdo->inTransaction()) $pdo->rollBack();
+        try {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+        } catch (Exception $rollbackEx) {
+            // Ignore rollback failure
+        }
         http_response_code(500);
         echo json_encode(["message" => "Error: " . $e->getMessage()]);
     }

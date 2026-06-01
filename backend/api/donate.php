@@ -24,11 +24,12 @@ if (
 
         if (!$student_id) throw new Exception("Campaign not found");
 
-        // Check if campaign is active
+        // Check if campaign is active and fetch goal / raised amounts
         $stmt = $pdo->prepare("
-            SELECT c.status_id, cs.status_name 
+            SELECT c.status_id, cs.status_name, c.goal_amount, COALESCE(s.raised_amount, 0) as raised_amount
             FROM campaigns c 
             JOIN campaign_statuses cs ON c.status_id = cs.status_id 
+            LEFT JOIN vw_campaign_stats_pure s ON c.campaign_id = s.campaign_id
             WHERE c.campaign_id = ?
         ");
         $stmt->execute([$data->campaign_id]);
@@ -36,6 +37,32 @@ if (
 
         if ($campaign['status_name'] !== 'active') {
              throw new Exception("Campaign is not active. Donations are currently disabled.");
+        }
+
+        // Fetch this donor's past cumulative donation to this campaign
+        $stmt = $pdo->prepare("
+            SELECT COALESCE(SUM(t.amount), 0)
+            FROM transactions t
+            JOIN txn_donations td ON t.transaction_id = td.transaction_id
+            WHERE t.user_id = ? AND td.campaign_id = ?
+        ");
+        $stmt->execute([$data->donor_id, $data->campaign_id]);
+        $already_donated = (float)$stmt->fetchColumn();
+
+        $goal = (float)$campaign['goal_amount'];
+        $raised = (float)$campaign['raised_amount'];
+        $remaining_goal = max(0, $goal - $raised);
+
+        // Max donation allowed for this transaction
+        $donor_allowance = max(0, 50000 - $already_donated);
+        $max_allowed = min($donor_allowance, $remaining_goal);
+
+        if ($donor_allowance <= 0) {
+            throw new Exception("You have already reached the lifetime donation limit of ৳50,000 for this campaign.");
+        }
+
+        if ($data->amount > $max_allowed) {
+            throw new Exception("Maximum allowed donation for this transaction is ৳" . number_format($max_allowed, 2) . ".");
         }
 
         // 2. Insert into Transactions (Supertype)

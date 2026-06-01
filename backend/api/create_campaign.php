@@ -22,6 +22,19 @@ if (
         exit;
     }
 
+    $max_date = date('Y-m-d', strtotime('+60 days'));
+    if ($data->end_date > $max_date) {
+        http_response_code(400);
+        echo json_encode(["message" => "Campaign duration cannot exceed 60 days (2 months)"]);
+        exit;
+    }
+
+    if ($data->goal_amount > 500000) {
+        http_response_code(400);
+        echo json_encode(["message" => "Maximum campaign funding goal is ৳500,000"]);
+        exit;
+    }
+
     try {
         $pdo->beginTransaction();
 
@@ -40,10 +53,11 @@ if (
             status_id,
             title, 
             description, 
+            image_url,
             goal_amount, 
             start_date,
             end_date
-        ) VALUES (?, ?, ?, ?, ?, ?, CURDATE(), ?)"); // slug removed, status_id added
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), ?)"); // slug removed, status_id added
         
         if ($stmt->execute([
             $data->studentId,
@@ -51,6 +65,7 @@ if (
             $status_id,
             $data->title,
             $data->description ?? '',
+            $data->cover_image ?? null,
             $data->goal_amount,
             $data->end_date
         ])) {
@@ -62,7 +77,11 @@ if (
             throw new Exception("Unable to create campaign");
         }
     } catch (Exception $e) {
-        if ($pdo->inTransaction()) $pdo->rollBack();
+        try {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+        } catch (Exception $rollbackEx) {
+            // Ignore rollback exception to return the primary database error instead of crashing
+        }
         http_response_code(500);
         echo json_encode(["message" => "Error: " . $e->getMessage()]);
     }

@@ -6,6 +6,7 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
 require_once 'db_config.php';
+require_once 'core/ScoreEngine.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -133,14 +134,19 @@ if (!empty($data->loan_id) && !empty($data->amount) && !empty($data->user_id)) {
         $stmt->execute([$data->loan_id]);
         $total_expected = $stmt->fetchColumn();
 
-        // Debug logging (optional, but good for verification)
-        // file_put_contents('debug_repay.log', "Loan: {$data->loan_id}, Paid: $total_paid, Expected: $total_expected\n", FILE_APPEND);
-
         // If fully paid (allow margin for float precision)
-        // $total_paid might be slightly less due to float math, or slightly more.
-        if (($total_expected - $total_paid) < 1.00) {
-            $stmt = $pdo->prepare("UPDATE loans SET status_id = 4 WHERE loan_id = ?");
-            $stmt->execute([$data->loan_id]);
+        $isFullyPaid = ($total_expected - $total_paid) < 1.00;
+        if ($isFullyPaid) {
+            // Resolve paid status ID dynamically from the DB to avoid lookup anomalies
+            $status_stmt = $pdo->prepare("SELECT status_id FROM loan_statuses WHERE status_name = 'paid'");
+            $status_stmt->execute();
+            $paid_status_id = $status_stmt->fetchColumn() ?: 5;
+
+            $stmt = $pdo->prepare("UPDATE loans SET status_id = ? WHERE loan_id = ?");
+            $stmt->execute([$paid_status_id, $data->loan_id]);
+
+            // Trigger EVT_02 (+25) for full repayment
+            ScoreEngine::applyEvent((int)$data->user_id, 'EVT_02', 'repayment_api', $pdo);
         } else {
             // === DYNAMIC RESCHEDULING ENGINE ===
             $remaining_balance = $total_expected - $total_paid;
@@ -178,6 +184,9 @@ if (!empty($data->loan_id) && !empty($data->amount) && !empty($data->user_id)) {
                 }
             }
         }
+
+        // Trigger EVT_01 (+10) for successful installment repayment
+        ScoreEngine::applyEvent((int)$data->user_id, 'EVT_01', 'repayment_api', $pdo);
 
         $pdo->commit();
 

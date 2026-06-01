@@ -110,9 +110,15 @@ export default function MyCampaigns() {
                                 const color = ['bg-indigo-600', 'bg-pink-600', 'bg-emerald-600', 'bg-orange-500'][idx % 4];
 
                                 return (
-                                    <div key={idx} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-all flex flex-col">
-                                        <div className={`h-40 relative overflow-hidden ${color} flex items-end p-4`}>
-                                            <h3 className="font-display font-bold text-xl text-white leading-tight z-10 relative">{c.title}</h3>
+                                    <div key={idx} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-all flex flex-col group">
+                                        <div className="h-40 relative overflow-hidden flex items-end p-4">
+                                            {c.image_url ? (
+                                                <img src={c.image_url} alt={c.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                            ) : (
+                                                <div className={`absolute inset-0 ${color}`}></div>
+                                            )}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                            <h3 className="font-display font-bold text-xl text-white leading-tight z-10 relative line-clamp-2">{c.title}</h3>
                                             <div className="absolute top-4 right-4 z-10">
                                                 <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass} shadow-sm backdrop-blur-md bg-opacity-90`}>
                                                     {c.status}
